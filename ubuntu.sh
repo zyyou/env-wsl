@@ -25,7 +25,7 @@ alinodeVer="alinode-$nodeVer"
 
 echo "------- 开始配置环境：git账号=$gituser，alinode=$alinodeVer"
 
-echo "安装git"
+echo "配置git"
 # 自带 2.17
 # sudo apt install git -y
 git config --global user.name $user
