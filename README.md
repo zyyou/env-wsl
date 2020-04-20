@@ -4,10 +4,12 @@
 
 # 运行脚本需要提权
 ```
-wget -O- https://raw.githubusercontent.com/zyyou/env-wsl/master/ubuntu.sh | bash
+# 替换 <宿主机用户名> <git仓库账号> 为自己的
+cd ~ && rm -f ubuntu.sh && wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ubuntu.sh && chmod +x ./ubuntu.sh && source ubuntu.sh <宿主机用户名> <git仓库账号>
 
-# 或者下载后
-source ./ubuntu.sh
+# 如宿主机更新过ssh key则执行此命令同步
+cd ~ && rm -f ssh-sync.sh && wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.sh && chmod +x ./ssh-sync.sh && source ssh-sync.sh <宿主机用户名>
+
 ```
 
 # 宿主机
