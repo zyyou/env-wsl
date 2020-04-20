@@ -44,8 +44,7 @@ wget -O- https://raw.githubusercontent.com/aliyun-node/tnvm/master/install.sh | 
 source ~/.bashrc
 
 echo "安装alinode"
-tnvm install $alinodeVer
-tnvm use $alinodeVer
+source ~/.bashrc && tnvm install $alinodeVer && tnvm use $alinodeVer
 
 echo "安装nodejs常用包"
 npm config set registry https://registry.npm.taobao.org/ && \
