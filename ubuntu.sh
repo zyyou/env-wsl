@@ -47,7 +47,10 @@ npm config set registry https://registry.npm.taobao.org/ && \
   npm i -g serve typescript
 
 # echo "同步宿主机ssh配置"
-wget -O- "https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.sh ${user}" | bash
+cd ~
+wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.ssh
+chmod +x ./ssh-sync.sh
+./ssh-sync.ssh $user
 
 # echo "创建工程目录"
 cd ~
