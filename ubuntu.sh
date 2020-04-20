@@ -1,37 +1,45 @@
 #!/bin/bash
 
 
-cd ~/
-echo "1/3 请输入宿主机用户名，如：zhengyy"
-read user
+cd ~
+
+cmdDemo="./install.sh <宿主机用户名> <git邮箱账号> [alinode版本号=v5.15.0]，如：./install.sh zhengyy zhengyy@xxx.com"
+
+# 宿主机用户
+user=$1
 if  [ ! -n "$user" ] ;then
-  echo "缺少宿主机用户名，请重新执行命令"
+  echo "缺少参数，参考：${cmdDemo}"
   exit
 fi
+# echo "user=${user}"
 
-echo "2/3 请输入git账号，一般为 用户名@xxx.com"
-read gituser
+# git用户
+gituser=$2
 if  [ ! -n "$gituser" ] ;then
-  echo "缺少git账号，请重新执行命令"
+  echo "缺少参数，参考：${cmdDemo}"
   exit
 fi
-
-echo "3/3 请输入要安装的alinode版本，默认：v5.15.0"
-read nodeVer
-if  [ ! -n "$nodeVer" ] ;then
-  nodeVer="v5.15.0"
-fi
-alinodeVer="alinode-$nodeVer"
-
-echo "------- 开始配置环境：git账号=$gituser，alinode=$alinodeVer"
+# echo "gituser=${gituser}"
 
 echo "配置git"
 # 自带 2.17
 # sudo apt install git -y
 git config --global user.name $user
 git config --global user.email $gituser
+echo "同步宿主机ssh配置"
+wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.sh
+chmod +x ssh-sync.sh
+./ssh-sync.sh $user
 
-echo "安装tnvm"
+
+# alinode版本
+nodeVer=$3
+if  [ ! -n "$nodeVer" ] ;then
+  nodeVer="v5.15.0"
+fi
+alinodeVer="alinode-$nodeVer"
+
+echo "tnvm ${alinodeVer}"
 wget -O- https://raw.githubusercontent.com/aliyun-node/tnvm/master/install.sh | bash
 source ~/.bashrc
 
@@ -45,23 +53,6 @@ npm config set registry https://registry.npm.taobao.org/ && \
   nrm add hynet http://192.168.5.165:4873/ && \
   nrm use hynet && \
   npm i -g serve typescript
-
-# echo "同步宿主机ssh配置"
-cd ~
-wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.ssh
-chmod +x ./ssh-sync.sh
-./ssh-sync.ssh $user
-
-# echo "创建工程目录"
-cd ~
-mkdir -p ~/projects/frontend ~/projects/document ~/projects/framework ~/projects/basic ~/projects/official ~/projects/customer \
-    ~/hynet \
-    ~/hyjava \
-    ~/github ~/aliyun ~/temp
-
-# echo "更新系统"
-# sudo apt update -y
-# sudo apt upgrade -y
 
 echo "安装常用工具"
 # which 自带
