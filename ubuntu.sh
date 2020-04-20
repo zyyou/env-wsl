@@ -29,8 +29,7 @@ git config --global user.email $gituser
 echo "同步宿主机ssh配置"
 wget https://raw.githubusercontent.com/zyyou/env-wsl/master/ssh-sync.sh
 chmod +x ssh-sync.sh
-./ssh-sync.sh $user
-
+source ssh-sync.sh $user
 
 # alinode版本
 nodeVer=$3
